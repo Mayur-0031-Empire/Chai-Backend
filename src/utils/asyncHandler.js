@@ -3,8 +3,8 @@
 // const asyncHandler = (Func) => {() => {}}
 // const asyncHandler = (Func) => async() => {}
 
-const asyyncHandler = (requestHandler) => {
-    (req, res, next) => {
+const asyncHandler = (requestHandler) => {
+    return (req, res, next) => {
         Promise.resolve(
             requestHandler(req, res, next)
         )
@@ -15,7 +15,7 @@ const asyyncHandler = (requestHandler) => {
 
 }
 
-export default asyncHandler;
+export {asyncHandler};
 
 // const asyncHandler = (func) => async (req, res ,next) =>{
 //     try {
