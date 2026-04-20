@@ -42,14 +42,13 @@ const userSchema = new Schema(
 
         watchhistory : [
             {
-                types : Schema.Types.ObjectId,
-                ref : "Video"
+                type : Schema.Types.ObjectId,
+                ref : "Video",
             }
         ],
 
         refreshToken : {
             type : String,
-            required : true,
         }
     }, 
     {
@@ -63,7 +62,6 @@ userSchema.pre("save", async function(next) {
         return next();
     }
     this.password = await bcrypt.hash(this.password, 10);
-    next();
 });
 
 userSchema.methods.isPasswordCorrect = async function(password){

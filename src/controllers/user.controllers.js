@@ -21,6 +21,7 @@ const registerUser = asyncHandler(
         // console.log("username : ", username);
         // console.log("password : ", password);
         console.log("body : ", req.body);
+        console.log(req.files);
 
         if ([fullname, username, email, password].some((field) => { field?.trim() === "" })) {
             throw new ApiError(400, "All fields are required");
@@ -41,6 +42,7 @@ const registerUser = asyncHandler(
             throw new ApiError(400, "Avatar and cover image are required");
         }
 
+
         const avatar = await uploadOnCloudinary(avatarLocalPath);
         const coverimage = await uploadOnCloudinary(coverImageLocalPath);
 
@@ -58,7 +60,7 @@ const registerUser = asyncHandler(
         });
 
         const createdUser = await User.findById(user._id).select(
-            "-password -refreshToken -watchhistory"
+            "-password -refreshToken "
         );
 
         if (!createdUser) {
